@@ -31,24 +31,24 @@ function create_issue_url (issue) {
   return loc.replace(/\w+\.[^\.]+$/, '') + 'issue.html?issue=' + issue;
 }
 
-function show_issues_in_dom (issues) {
+function show_issues_in_dom (issues, pages) {
   issues.forEach(function (issue) {
     $('#cards .row').append(
-      "<div class='col s12'>" +
-      "<div class='card'>" +
-      "<div class='card-content'>" +
-      "<span class='card-title teal-text text-darken-4'>" +
-      issue.title +
-      "</span> " +
-      generate_label_html(issue.labels) + "<p>" +
-      marked(issue.body)
-        .replace('<img', '<img class="responsive-img"')
-        .replace(/h[1-6]/g, 'h5') +
-      "</p>" + "</div><div class='card-action'>" +
-      "<a href='" + create_issue_url(issue.number) +
-      "'>Read more</a>" +
-      "<a target='_blank' href='" + issue.html_url + "'>View on GitHub</a>" +
-      "</div></div></div>"
+      `<div class='col s12'>
+        <div class='card'>
+          <div class='card-content'>
+            <span class='card-title teal-text text-darken-4'>
+              ${issue.title}
+            </span>
+            ${generate_label_html(issue.labels)}
+            <p>${marked(issue.body).replace('<img', '<img class="responsive-img"').replace(/h[1-6]/g, 'h5')}</p>
+          </div>
+          <div class='card-action'>
+            <a href='${create_issue_url(issue.number)}'>Leia mais</a>
+            <a target='_blank' href='${issue.html_url}'>Ver no Github</a>
+          </div>
+        </div>
+      </div>`
     );
 
   });
